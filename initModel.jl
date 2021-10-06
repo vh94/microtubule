@@ -1,15 +1,12 @@
 # initialization
-include("MSD.jl")
+
 include("Model.jl")
-include("agent.jl")
-include("agentstep.jl")
-include("modelstep.jl")
 
 model = initialize(
-    griddims =(200,200),
+    griddims =(50,50),
     periodic= true,
-    Nstarts=15,
-    numagents = 1250,
+    Nstarts=1,
+    numagents = 120,
     p_polym=0.80,
     p_hyd= 0.02,
     p_depolym_GTP=0,

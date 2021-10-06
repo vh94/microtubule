@@ -26,3 +26,4 @@ function agent_step!(agent,model)
         end
     end
 end
+print("\ncreated agent-step function.")
