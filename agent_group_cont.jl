@@ -1,6 +1,6 @@
 # Functions to calculate mean MT lenght MT (group) definend by 
 #  countmap(data.polym) 
-using Statistics
+
 # allgemeiner fall
 function agent_group_cont(model,group,fun::Int64)
     groupv = Vector{Int64}()
@@ -24,7 +24,7 @@ function mean_agent_gs(model)
 end
 
 # spezialfall sd
-function std_gs(model, fun)
+function std_gs(model)
     group = Vector{Int64}()
         for i in 1:length(model.agents)
             push!(group,model.agents[i].polym)
