@@ -10,10 +10,10 @@ end
 
 
 function depolymerize(agent,model)
-            
- if (1 in agent.pos) == false && isempty(agent.pos.-1, model) || agent.pos[1]==1 && agent.pos[2]>1 && isempty(tuple(model.griddims[1],agent.pos[2]-1),model)  || agent.pos[1]>1 && agent.pos[2]==1 && isempty(tuple(agent.pos[1]-1,model.griddims[2]),model) || agent.pos==(1,1) && isempty(model.griddims,model) || agent.pos[1] == model.griddims[1] && agent.pos[2]>1 && isempty(tuple(1, agent.pos[2]-1),model)||agent.pos[1]>1 && agent.pos[2] == model.griddims[2] && isempty(tuple(agent.pos[2]-1,1 ),model)   
+      
+ if (1 in agent.pos) == false && isempty(agent.pos.-1, model) || agent.pos[1]==1 && agent.pos[2]>1 && isempty(tuple(model.griddims[1],agent.pos[2]-1),model)  || agent.pos[1]>1 && agent.pos[2]==1 && isempty(tuple(agent.pos[1]-1,model.griddims[2]),model) || agent.pos==(1,1) && isempty(model.griddims,model) || agent.pos[1] == model.griddims[1] && agent.pos[2]>1 && isempty(tuple(1, agent.pos[2]-1),model)|| agent.pos[1]>1 && agent.pos[2] == model.griddims[2] && isempty(tuple(agent.pos[1]-1,1 ),model)   
                 if agent.GDP  # if hydrolized
-                    agent.polym = rand(model.P_depolym_GDP,1)[1]== 1  ? agent.polym : 0 # depolyimerize P_depolym_GDP!!!!
+                    agent.polym = rand(model.P_depolym_GDP,1)[1]== 1  ? agent.polym : 0 # rand is called here so all good 
                 else
                     agent.polym = rand(model.P_depolym_GTP,1)[1]== 1  ? agent.polym : 0 ##
                 end
