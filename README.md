@@ -6,7 +6,7 @@ The model is an ABM with a two dimensional periodic gridspace .
 
 ### Agents 
  
-The agents, representing \alpha + \beta -tubulindimers, are implemented by a
+The agents, representing α-& β- tubulin dimers, are implemented by a
 mutable struct tubulin <: AbstractAgent
 containing the Fields:
 
@@ -40,16 +40,32 @@ Fields
     - Gridsize::Tuple{Int,2}
     - Number of agents::tubulin
     - Number of Seeding Points
-    - Polimerization rate
-    - Hydrolisation rate
+    
+   Random (Binomial) distributed:
+    
+    - Polimerization rate ,p
+    - Hydrolisation rate , p
     - Depolymerisation rate_GTP
     - Depolymerisation rate_GDP
+    
+
     
     
 ### Stepping rules
 
 
-Stepping rules for the model are created by running 'modelstep.jl' 
+Stepping rules for the model are created by running ´modelstep.jl´ 
 
 
-Stepping rules for the agents are created by either running 'agentstep_pretty.jl' or agentstep_fast.jl
+Stepping rules for the agents are created by either running `agentstep_pretty.jl` or `agentstep_fast.jl`
+
+
+
+
+
+
+#### Agentstep function speed
+
+`@btime step!(model,agent_step!,model_step!,10)`
+    Agent Step pretty: 12.705 ms (155651 allocations: 10.33 MiB)
+    Agent Step fast:   10.830 ms (90021 allocations: 4.34 MiB)

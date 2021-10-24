@@ -1,4 +1,4 @@
-#= Agent Step function =#
+#= fast Agent Step function =#
 
 function polymerize(agent,model)
 for id in nearby_ids(agent, model,1) # 
