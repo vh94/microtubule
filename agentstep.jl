@@ -1,29 +1,28 @@
 #= Agent Step function =#
 function agent_step!(agent,model)
     if agent.id > model.Nstarts   
-           dirs = collect(nearby_positions(agent, model,1))             
     if agent.polym == 0          
         walk!(agent, rand, model, ifempty =true)   
         for id in nearby_ids(agent, model,1)       
             if model[id].polym >= 1  && model[id].pos == collect(nearby_positions(agent, model,1))[8]  
-                agent.polym = rand(model.P_polym,1)[1] ==1 ? model[id].polym : 
-                end
+                agent.polym = rand(model.P_polym,1)[1] == 1 ? model[id].polym : 0
             end
         end
+    end
     if agent.polym > 0             
         if agent.GDP == false                  
-            agent.GDP = rand(model.P_hyd,1)[1]      
-            if isempty(dirs[1], model) 
-                if agent.GDP  
-                    agent.polym = rand(model.P_depolym_GDP,1)[1]== 1  ? agent.polym : 0
-                else
-                    agent.polym = rand(model.P_depolym_GTP,1)[1]== 1  ? agent.polym : 0 
-                    end
-                end
-            end 
-    end
+            agent.GDP = rand(model.P_hyd,1)[1]     
+        end
+        if isempty(collect(nearby_positions(agent, model,1))[1], model) 
+            if agent.GDP 
+                agent.polym = rand(model.P_depolym_GDP,1)[1]== 1  ? agent.polym : 0
+            else
+                agent.polym = rand(model.P_depolym_GTP,1)[1]== 1  ? agent.polym : 0 
+            end
+        end
+     end
+   end
 end
-    
 #= old ugly but fast Agent Step function =#
 
 # function polymerize(agent,model)

@@ -1,7 +1,8 @@
 # ABM microtubule dynamics
 
-This repository contains Julia skripts to model and analyze the dynamical instabilty of Microtubules.
-The model is an ABM with a two dimensional periodic gridspace .
+This repository contains Julia skripts to model and test the dynamical instabilty of PROTOFILAMENTS of Microtubules in silicio.
+
+The model is an Agent Based Model with a two dimensional periodic gridspace .
 
 
 ### Agents 
@@ -23,13 +24,14 @@ see file agent.jl
 
 ### Model
 
+The Model itself is a struct 
 
-struct AgentBasedModel{GridSpace{2, true, Nothing}, tubulin, typeof(Agents.Schedulers.randomly), Dict{Symbol, Any}, Random.MersenneTwister} <: Any
+`AgentBasedModel{GridSpace{2, true, Nothing}, tubulin, typeof(Agents.Schedulers.randomly), Dict{Symbol, Any}, Random.MersenneTwister} <: Any`
 
 Fields
 
-	- agents::Dict{Int64, tubulin}
 	- space::GridSpace{2, true, Nothing}
+	- agents::Dict{Int64, tubulin}
 	- scheduler::typeof(Agents.Schedulers.randomly)
 	- properties::Dict{Symbol, Any}
 	- rng::Random.MersenneTwister
@@ -50,7 +52,10 @@ Fields
     
 
     
-    
+### Model Intiztialisation
+
+Model intialisation is done by running the init.jl script to load the initialise() function
+with chosen model properties   
 ### Stepping rules
 
 

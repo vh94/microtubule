@@ -1,5 +1,5 @@
 # Interactive Model
-
+using GlMakie
 params = Dict(
     :p_hyd => 0:0.01:1,
     :p_polym => 0:0.01:1,

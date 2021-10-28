@@ -1,3 +1,12 @@
+# Some Packages:
+
+using Agents
+using StatsBase: counts
+using Statistics: mean
+using DataFrames
+using Distributions
+using DrWatson: @dict
+
 
 #= Main Function to initialize the model=#
 function initialize(;Nstarts, numagents, periodic, griddims, p_hyd,  p_polym,

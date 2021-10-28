@@ -1,4 +1,3 @@
-
 #= Model Step function =#
 function model_step!(model)
     model.tick += 1
