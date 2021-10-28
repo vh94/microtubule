@@ -24,3 +24,13 @@ function MSD(data)
         end
     return MSD
 end
+
+
+function growth_rate!(df) 
+    df.growthrate=zeros(nrow(df))
+    for n in 2:nrow(df)
+        if df.step[n]>1
+            df.growthrate[n]= -(df[n,:mean_MT_size_mean],df[n-1,:mean_MT_size_mean])
+        end
+    end
+end
