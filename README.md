@@ -15,7 +15,10 @@ Julia Version 1.6.2
     - StatsBase v0.33.12
     - Statistics
 
-For Plotting: MakieGL.jl
+For Plotting: 
+
+	- GLMakie v0.4.7
+	- InteractiveDynamics v0.17.3
 
 ### Agents 
  
@@ -32,15 +35,15 @@ Supertype Hierarchy:
       
       tubulin <: AbstractAgent <: Any
     
-see file agent.jl
+see `agent.jl`
 
 
     
 ### Model Initialisation
 
-Model intialisation is done by running the init.jl script to load the initialize() function
+Model intialisation is done by running the `init.jl` script to load the initialize() function
 
-The Output of the initialize function is an populated model at timestep zero T = 0 :
+The Output of the initialize function is the model at timestep zero T = 0 :
 
 
 ### Model
@@ -71,21 +74,72 @@ Fields
     - Depolymerisation rate_GTP
     - Depolymerisation rate_GDP
     
-<img src="rescue.png"
-     alt="Microtubuli"
-     style="float: left; margin-right: 10px;" />
-     
-<br>
+
   
 ### Stepping rules
 
 
 Stepping rules for the model are created by running the `modelstep.jl` script
 
-The modelstep! - function accepts a model struct as input and calculates a set of binomial disributions for each model-step using the parameters in the model properties as probabilities 
+The modelstep! - function accepts a model struct as input and calculates a set of binomial disributions for each model-step using the parameters in the model properties as probabilities. 
 
-Stepping rules for the agents are created by running the `agentstep.jl` script 
+Stepping rules for the agents are created by running the `agentstep.jl` script. 
+At the moment all seedingpoints grow into the same direction (x-1,y-1).
 
+### Data collection 
+
+To collect data during simulation two dataframes are used:
+ _adata_ contains the agents data, while
+ _mdata_ holds model values such as shared or summarised values for all agents
+
+ 
+### Run a single Simulation
+
+To run a Simulation first call initialize to create the model:
+
+```
+model=initialize(; Nstarts= 5,
+        periodic= true,
+        numagents = 2000,
+        griddims=(100,100), 
+        p_polym=0.8,
+        p_hyd= 0.03,
+        p_depolym_GTP=0,
+        p_depolym_GDP=0.3) 
+
+```
+
+
+create data-arrays for model and agent data based on symbols or functions (ie sum, mean counts, or see anlayze functions for specific functions) 
+
+
+```
+mdata = [mean_MT_size,sd_MT_size,:p_hyd]
+adata = [:pos, :polym, :GDP]
+
+
+```
+
+By calling run! with below arguments the model progresses 200 steps and saves the simulated data to adata and mdata
+```
+run!(model,agent_step!,model_step!,200; adata, mdata)
+
+```
+
+
+<img src="p2.png"
+     alt="Microtubuli"
+     style="float: left; margin-right: 10px;" />
+     
+<br>
+
+### Interactive Simulation
+
+With the interactive Simulation Packages InteractiveDynamics, GLMakie and DrWattson, the values in the model properties dict can be changed during simulation.
+
+see `interactive.jl` 
+
+### Parameter scan
 
 ### Ensemble models
 
