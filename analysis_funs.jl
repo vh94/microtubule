@@ -10,7 +10,10 @@ function sd_MT_size(model)
     stdMTL=std(counts([model.agents[i].polym for i in 1:length(model.agents)])[setdiff(1:end, 1), 1])
 end
 
-# MSD function
+
+
+## Time dependent
+# MSD function 
 function MSD(data)   
     n_ids= maximum(data.id)
     n_steps=maximum(data.step)+1
@@ -18,19 +21,33 @@ function MSD(data)
     poses=hcat(collect.(data.pos)...)
     x_0=poses[1,unique(data.id)]
     y_0=poses[2,unique(data.id)]
-    MSD = zeros(n_steps) #array länge data.step init zeros()
+    MSD = zeros(n_steps) 
         for i in 1:n_steps
             MSD[i]=mean(sqrt.((poses[1,r[i]:r[i+1]-1].-x_0).^2 + (poses[2,r[i]:r[i+1]-1].-y_0).^2))
         end
     return MSD
 end
 
+# growth rate function
 
-function growth_rate!(df) 
+# for summary df
+function growth_rate_summary!(df) 
     df.growthrate=zeros(nrow(df))
     for n in 2:nrow(df)
         if df.step[n]>1
             df.growthrate[n]= -(df[n,:mean_MT_size_mean],df[n-1,:mean_MT_size_mean])
+        end
+    end
+end
+
+
+function growth_rate!(df) 
+    df.growthrate=zeros(nrow(df))
+    for n in 2:nrow(df)
+        if df.step[n] == 0
+            df.growthrate[n]=0
+        elseif df.step[n]>0
+            df.growthrate[n]= df[n,:mean_MT_size]-df[n-1,:mean_MT_size]
         end
     end
 end

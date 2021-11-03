@@ -86,11 +86,7 @@ The modelstep! - function accepts a model struct as input and calculates a set o
 Stepping rules for the agents are created by running the `agentstep.jl` script. 
 At the moment all seedingpoints grow into the same direction (x-1,y-1).
 
-### Data collection 
 
-To collect data during simulation two dataframes are used:
- _adata_ contains the agents data, while
- _mdata_ holds model values such as shared or summarised values for all agents
 
  
 ### Run a single Simulation
@@ -109,15 +105,18 @@ model=initialize(; Nstarts= 5,
 
 ```
 
+### Data collection 
 
-create data-arrays for model and agent data based on symbols or functions (ie sum, mean counts, or see anlayze functions for specific functions) 
+To collect data during simulation two dataframes are used:
+ _adata_ contains the agents data, while
+ _mdata_ holds model values such as shared or summarised values for all agents
+
+array elements can be symbols or functions (ie sum, mean counts, or see anlayze functions for specific functions) 
 
 
 ```
 mdata = [mean_MT_size,sd_MT_size,:p_hyd]
 adata = [:pos, :polym, :GDP]
-
-
 ```
 
 By calling run! with below arguments the model progresses 200 steps and saves the simulated data to adata and mdata
